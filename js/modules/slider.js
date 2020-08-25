@@ -1,54 +1,20 @@
-function slider() {
-    const slides = document.querySelectorAll('.offer__slide'),
-        slider = document.querySelector('.offer__slider'),
-        sliderPrev = document.querySelector('.offer__slider-prev'),
-        sliderNext = document.querySelector('.offer__slider-next'),
-        total = document.querySelector('#total'),
-        current = document.querySelector('#current');
+import {
+    getZero
+} from './timer';
 
-    let slideIndex = 1;
-
-    // Variant 1: Visible/Invisible (*.style.display = 'block'/'none')
-    // 
-    // showSlide(slideIndex);
-
-    // total.textContent = getZero(slides.length);
-
-
-    // sliderPrev.addEventListener('click', () => {
-    //     plusSlides(-1);
-    // });
-
-    // sliderNext.addEventListener('click', () => {
-    //     plusSlides(1);
-    // });
-
-    // function showSlide(n) {
-    //     if (n > slides.length) {
-    //         slideIndex = 1;
-    //     }
-
-    //     if (n < 1) {
-    //         slideIndex = slides.length;
-    //     }
-    //     current.textContent = getZero(slideIndex);
-
-    //     slides.forEach(item => item.style.display = 'none');
-
-    //     slides[slideIndex - 1].style.display = 'block';
-    // }
-
-    // function plusSlides(n) {
-    //     showSlide(slideIndex += n);
-    // }
-
-    // Variant 2: "Карусель"
-
-    const slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-        slidesField = document.querySelector('.offer__slider-inner'),
+function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
+    const slides = document.querySelectorAll(slide),
+        slider = document.querySelector(container),
+        sliderPrev = document.querySelector(prevArrow),
+        sliderNext = document.querySelector(nextArrow),
+        total = document.querySelector(totalCounter),
+        current = document.querySelector(currentCounter),
+        slidesWrapper = document.querySelector(wrapper),
+        slidesField = document.querySelector(field),
         width = window.getComputedStyle(slidesWrapper).width;
 
-    let offset = 0;
+    let slideIndex = 1,
+        offset = 0;
 
     total.textContent = getZero(slides.length);
     current.textContent = getZero(slideIndex);
@@ -140,14 +106,6 @@ function slider() {
         });
     });
 
-    function getZero(num) {
-        if (num >= 0 && num < 10) {
-            return `0${num}`;
-        } else {
-            return num;
-        }
-    }
-    
     function transformsSlides() {
         slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -163,4 +121,4 @@ function slider() {
     }
 }
 
-module.exports = slider;
+export default slider;
